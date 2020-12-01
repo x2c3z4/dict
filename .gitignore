@@ -1,1 +1,34 @@
-dict
+# project related
+/dict
+/coverage.data
+/coverage.txt
+/coverage.html
+/coverage.xml
+/release
+/pkg/mocks
+build/
+rpm/rpmbuild
+rpm/x86_64
+
+### Go
+# Binaries for programs and plugins
+/*.sock
+*.dll
+*.so
+*.dylib
+
+# Dependency directories
+vendor/
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+
