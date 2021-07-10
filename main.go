@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -8,6 +9,8 @@ import (
 	"os"
 
 	"github.com/PuerkitoBio/goquery"
+
+	"github.com/cockroachdb/dict/pkg/common"
 )
 
 const URL = "http://cn.bing.com/dict/search?q=%s&FORM=BDVSP6&mkt=zh-cn"
@@ -119,11 +122,18 @@ func NewBing(key string) *Bing {
 }
 
 func main() {
-	if len(os.Args) != 2 {
+	var version bool
+	flag.BoolVar(&version, "version", false, "show version")
+	flag.Parse()
+	if version {
+		common.EchoVersion()
+		return
+	}
+	if flag.NArg() != 1 {
 		fmt.Println("please enter your word")
 		os.Exit(1)
 	}
-	key := os.Args[1]
+	key := flag.Arg(0)
 	b := NewBing(key)
 	b.Parse()
 }

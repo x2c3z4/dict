@@ -21,11 +21,9 @@ var (
 
 // EchoVersion outputs standard version information.
 func EchoVersion() {
+	fmt.Printf("%-10s: %s\n", "Version", Version)
+	fmt.Printf("%-10s: %s\n", "CommitID", CommitID)
+	fmt.Printf("%-10s: %s\n", "BuildTime", BuildTime)
 	fmt.Printf("%s\n", strings.Repeat("=", 80))
-	fmt.Printf("%-20s: %s\n", "Version", Version)
-	fmt.Printf("%-20s: %s\n", "CommitID", CommitID)
-	fmt.Printf("%-20s: %s\n", "BuildTime", BuildTime)
-	fmt.Printf("%s\n", strings.Repeat("=", 80))
-	fmt.Printf("%-20s: \n%s\n", "ChangeLog", ChangeLog)
-	fmt.Printf("%s\n", strings.Repeat("=", 80))
+	fmt.Printf("%-10s: \n%s\n", "ChangeLog", ChangeLog)
 }

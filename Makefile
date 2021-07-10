@@ -3,8 +3,8 @@ MODULE ?= $(shell head -n 1 go.mod | awk '{print $$2}')
 GOPATH := $(shell go env GOPATH)
 BUILD_TIME := $(shell date)
 COMMIT_ID := $(shell git rev-parse --short HEAD)
-ORG_PATH="github.com"
-REPO_PATH="vonnyfly/dict"
+ORG_PATH=github.com
+REPO_PATH=vonnyfly/dict
 
 # for rpm build
 VERSION_LONG_STR=$(shell git describe --tags --long)
@@ -20,7 +20,7 @@ LDFLAGS := -X '${ORG_PATH}/${REPO_PATH}/pkg/common.Version=$(VERSION)' -X '${ORG
 GOARCH := $(shell go env GOARCH)
 GOOS := $(shell go env GOOS)
 
-TAG ?= "vonnyfly/dict:$(VERSION)"
+TAG ?= "${REPO_PATH}:$(VERSION)"
 
 all: build
 
@@ -81,7 +81,7 @@ integration:
 .PHONY: build
 build: fmt
 	@echo "Building dict binary to './dict'"
-	@GO111MODULE=on CGO_ENABLED=0 go build -mod=mod -trimpath --ldflags "$(LDFLAGS) -X '${ORG_PATH}/${REPO_PATH}/pkg/common.ChangeLog=`git log --oneline -10`'" -o $(PWD)/dict
+	GO111MODULE=on CGO_ENABLED=0 go build -mod=mod -trimpath --ldflags "$(LDFLAGS) -X '${ORG_PATH}/${REPO_PATH}/pkg/common.ChangeLog=`git log --oneline -10`'" -o $(PWD)/dict
 
 .PHONY: rpm
 rpm:
