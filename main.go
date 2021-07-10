@@ -9,8 +9,7 @@ import (
 	"os"
 
 	"github.com/PuerkitoBio/goquery"
-
-	"github.com/cockroachdb/dict/pkg/common"
+	"github.com/vonnyfly/dict/pkg/common"
 )
 
 const URL = "http://cn.bing.com/dict/search?q=%s&FORM=BDVSP6&mkt=zh-cn"

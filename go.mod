@@ -1,8 +1,5 @@
-module github.com/cockroachdb/dict
+module github.com/vonnyfly/dict
 
-go 1.15
+go 1.16
 
-require (
-	github.com/PuerkitoBio/goquery v1.6.0
-	golang.org/x/net v0.0.0-20201021035429-f5854403a974 // indirect
-)
+require github.com/PuerkitoBio/goquery v1.7.0
