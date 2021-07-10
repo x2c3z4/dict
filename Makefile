@@ -22,7 +22,12 @@ GOOS := $(shell go env GOOS)
 
 TAG ?= "${REPO_PATH}:$(VERSION)"
 
-all: build
+# output
+NAME=dict
+BINDIR=bin
+GOBUILD=GO111MODULE=on CGO_ENABLED=0 go build -mod=mod -trimpath --ldflags "$(LDFLAGS) -X '${ORG_PATH}/${REPO_PATH}/pkg/common.ChangeLog=`git log --oneline -10`'"
+
+all: linux-amd64 darwin-amd64 darwin-arm64
 
 verifiers: fmt lint vet
 
@@ -78,10 +83,17 @@ integration:
 	@echo "Running integration tests"
 	@GO111MODULE=on CGO_ENABLED=0 go test -tags=integration -race -vet -count=1 ./...
 
-.PHONY: build
-build: fmt
-	@echo "Building dict binary to './dict'"
-	GO111MODULE=on CGO_ENABLED=0 go build -mod=mod -trimpath --ldflags "$(LDFLAGS) -X '${ORG_PATH}/${REPO_PATH}/pkg/common.ChangeLog=`git log --oneline -10`'" -o $(PWD)/dict
+darwin-amd64:
+	@echo "Build $(BINDIR)/$(NAME)-$@"
+	@GOARCH=amd64 GOOS=darwin $(GOBUILD) -o $(BINDIR)/$(NAME)-$@
+
+darwin-arm64:
+	@echo "Build $(BINDIR)/$(NAME)-$@"
+	@GOARCH=arm64 GOOS=darwin $(GOBUILD) -o $(BINDIR)/$(NAME)-$@
+
+linux-amd64:
+	@echo "Build $(BINDIR)/$(NAME)-$@"
+	@GOARCH=amd64 GOOS=linux $(GOBUILD) -o $(BINDIR)/$(NAME)-$@
 
 .PHONY: rpm
 rpm:
@@ -98,6 +110,5 @@ rpm:
 
 .PHONY: clean
 clean:
-	@echo "Cleaning up all the generated files"
-	@rm -rvf dict
+	@rm $(BINDIR)/*
 	@rm -rvf coverage.*
