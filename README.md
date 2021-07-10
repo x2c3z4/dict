@@ -7,4 +7,4 @@ A tiny dictionary tool on the console.
 ```
 ./dict <word>
 ```
-支持各种语言，包括中文，英文。
+Support Chinese/English, and other languages.
